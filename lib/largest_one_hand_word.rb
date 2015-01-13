@@ -2,25 +2,42 @@
 require_relative '../tale_of_two_cities.rb'
 
 class LargestWord
-  @dict = TALE_OF_TWO_CITIES.split(" ")
-  @hand = {left: "[qwertyasdfgzxcv]", right: '[uiophjklbnm]'}
+  attr_reader :hands
+  attr_accessor :dictionary
 
-  #Check to see if one hand can type one word
-  def self.type_word_with_one_hand?(which_hand,word)
-    if which_hand == 'left'
-      word.downcase.scan(Regexp.new(@hand[:right])).empty?
-    else
-      word.downcase.scan(Regexp.new(@hand[:left])).empty?
-    end
+  def initialize(dict)
+    @dictionary = dict.split(" ")
+    @hands = {left: "[qwertyasdfgzxcv]", right: '[uiophjklbnm]'}
+  end
+
+  #Check to see if right hand can type one word
+  def type_with_right_hand?(word)
+    word.downcase.scan(Regexp.new(@hands[:left])).empty?
+  end
+
+  #Check to see if left hand can type one word
+  def type_with_left_hand?(word)
+    word.downcase.scan(Regexp.new(@hands[:right])).empty?
   end
 
   #loop through the dictionary, and return the largest word
-  def self.largest_word_in_dict(dictionary,which_hand)
+  def largest_word_in_dict(dictionary, which_hand)
     largest_one_hand_word = ""
-    dictionary.each do |dict_word|
-      if LargestWord.type_word_with_one_hand?(which_hand,dict_word)
-        if dict_word.length > largest_one_hand_word.length
-          largest_one_hand_word = dict_word
+
+    if which_hand == 'left'
+      dictionary.each do |dict_word|
+        if type_with_left_hand?(dict_word)
+          if dict_word.length > largest_one_hand_word.length
+            largest_one_hand_word = dict_word
+          end
+        end
+      end
+    else
+      dictionary.each do |dict_word|
+        if type_with_right_hand?(dict_word)
+          if dict_word.length > largest_one_hand_word.length
+            largest_one_hand_word = dict_word
+          end
         end
       end
     end
