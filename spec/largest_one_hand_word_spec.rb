@@ -54,11 +54,11 @@ describe "LargestWord" do
     end
 
     it 'that returns the largest lefthanded word in Tale of Two Cities' do
-      expect(lw.largest_word_in_dict(lw.dictionary,'left')).to eq("Aggerawayter?\"")
+      expect(lw.largest_word_in_dict(lw.dictionary,'left')).to eq("exaggerated")
     end
 
     it 'that returns the largest righthand word in Tale of Two Cities' do
-      expect(lw.largest_word_in_dict(lw.dictionary,'right')).to eq("\"_John_,\"")
+      expect(lw.largest_word_in_dict(lw.dictionary,'right')).to eq("opinion")
     end
   end
 
