@@ -8,17 +8,19 @@ class LargestWord
 
   def initialize(dict)
     @dictionary = dict.split(" ")
-    @hands = {left: "[qwertyasdfgzxcv\"\'1234567890?._!,\']", right: '[uiophjklbnm"\'1234567890?!._,\']'}
+    @hands = {left: "qwertyasdfgzxcv", right: 'uiophjklbnm'}
   end
+
+  STRING_LITERALS = "\"\'1234567890?._!,\'"
 
   #Check to see if right hand can type one word
   def type_with_right_hand?(word)
-    word.downcase.scan(Regexp.new(hands[:left])).empty?
+    word.downcase.scan(Regexp.new("["<<hands[:left]<<STRING_LITERALS<<"]")).empty?
   end
 
   #Check to see if left hand can type one word
   def type_with_left_hand?(word)
-    word.downcase.scan(Regexp.new(hands[:right])).empty?
+    word.downcase.scan(Regexp.new("["<<hands[:right]<<STRING_LITERALS<<"]")).empty?
   end
 
   #loop through the dictionary, and return the largest word
