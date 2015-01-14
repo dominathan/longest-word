@@ -1,6 +1,5 @@
 # Given a dictionary, what is the largest word you can type using only your left hand
 require_relative '../tale_of_two_cities.rb'
-require 'pry'
 
 class LargestWord
   attr_reader :hands
@@ -16,11 +15,15 @@ class LargestWord
   #Check to see if right hand can type one word
   def type_with_right_hand?(word)
     word.downcase.scan(Regexp.new("["<<hands[:left]<<STRING_LITERALS<<"]")).empty?
+    #Alternate Method
+    #word.chars.each.all? { |x| hands[:right].split("").include?(x) }
   end
 
   #Check to see if left hand can type one word
   def type_with_left_hand?(word)
     word.downcase.scan(Regexp.new("["<<hands[:right]<<STRING_LITERALS<<"]")).empty?
+    #Alternate Method
+    #word.chars.each.all? { |x| hands[:left].split("").include?(x) }
   end
 
   #loop through the dictionary, and return the largest word
@@ -37,15 +40,8 @@ class LargestWord
   end
 
   private
-
     def type_with_one_hand?(hand,word)
       send("type_with_#{hand}_hand?".to_sym, word)
     end
-
 end
 
-
-
-
-
-#send("#{hand}_hand").to_sym
